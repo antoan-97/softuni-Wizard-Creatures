@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const creatureManager = require('../managers/creatureManager');
+const User = require('../models/User');
+
 
 const { getErrorMessage } = require('../utils/errorHelper');
 
@@ -26,5 +28,28 @@ router.post('/create', async (req, res) => {
         res.render('creatures/create', { error: getErrorMessage(err) })
     }
 });
+
+
+router.get('/:creatureId/details', async (req,res) =>{
+    const { user } = req;
+    const creatureId = req.params.creatureId;
+    const creature = await creatureManager.getOne(creatureId).lean();
+
+    const voters = await User.find({ _id: { $in: creature.votes } }, 'email').lean();
+    const voterEmails = voters.map(voter => voter.email);
+   
+  
+     const owner = await User.findById(creature.owner).lean();
+     const ownerName = owner ? `${owner.firstName} ${owner.lastName}` : 'Unknown';
+     console.log(user);
+
+
+    
+    const isOwner = req.user?._id == creature.owner?._id;
+    const hasVoted = creature.votes?.some((v) => v?.toString() === user?._id);
+
+    res.render('creatures/details', { isOwner, user, creature, hasVoted, ownerName,voterEmails  })
+
+})
 
 module.exports = router;
