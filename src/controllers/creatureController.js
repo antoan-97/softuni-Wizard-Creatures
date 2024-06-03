@@ -3,8 +3,14 @@ const creatureManager = require('../managers/creatureManager');
 
 const { getErrorMessage } = require('../utils/errorHelper');
 
+
+router.get('/', async (req,res) =>{
+    const creatures = await creatureManager.getAll().lean();
+    res.render('creatures', { creatures })
+});
+
 router.get('/create', (req, res) => {
-    res.render('create');
+    res.render('creatures/create');
 });
 
 router.post('/create', async (req, res) => {
@@ -15,7 +21,7 @@ router.post('/create', async (req, res) => {
 
     try {
         await creatureManager.create(creatureData);
-        res.redirect('/')
+        res.redirect('/creatures')
     } catch (err) {
         res.render('creatures/create', { error: getErrorMessage(err) })
     }
