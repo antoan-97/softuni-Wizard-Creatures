@@ -25,19 +25,19 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { username, email, password, repeatPassword } = req.body;
+    const { firstName, lastName, email, password, repeatPassword } = req.body;
 
     if (password !== repeatPassword) {
         return res.render('users/register', { error: 'Passwords do not match!', username, email });
     };
 
     try {
-        const token = await userManager.register({ username, email, password, repeatPassword });
+        const token = await userManager.register({ firstName, lastName, email, password, repeatPassword });
 
         res.cookie('token',token)
         res.redirect('/');
     } catch (err) {
-        res.render('users/register', { error:getErrorMessage(err),  username, email, password, repeatPassword  })
+        res.render('users/register', { error:getErrorMessage(err),  firstName, lastName, email, password, repeatPassword  })
     }
 });
 
