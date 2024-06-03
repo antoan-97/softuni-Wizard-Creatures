@@ -1,105 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Starts Head Section -->
 
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/x-icon" href="/images/free-30-instagram-stories-icons23_122570.png">
-    <title>Petstagram</title>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+
+    <!-- Do not forget to change the path to the css file -->
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
 </head>
 
-<!-- Starts Body Section -->
-
 <body>
-  
-      {{#if error}}
-     <div>
-        <div class="errorContainer">
-            <p>{{error}}</p>
-        </div>
-    </div> 
-    {{/if}}
-
-    <!-- Starts Header Section with Navigation Bar -->
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <!-- Link to Home Page -->
-                    <a href="/">
-                        <img width="50px" src="/images/free-30-instagram-stories-icons23_122570.png" alt="img1">
-                    </a>
-                    <!-- Link to Home Page -->
-                    <a class="home" href="/">
-                        <i>Petstagram</i>
-                    </a>
-                </div>
-
-                <div class="nav-links">
-                    <ul class="nav-group">
-                        <li class="nav-item">
-                            <!-- Link to Catalog Page -->
-                            <a href="#">
-                                <i>Catalog</i>
-                            </a>
-                        </li>
 
 
-                        <!--For login users-->
-                        {{#if itsAuthenticated}}
+    <div id="box">
 
-                        <li class="nav-item">
-                            <!-- Link to Add Photo Page -->
-                            <a href="#">
-                                <i>Add Photo</i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <!-- Link to Profile Page -->
-                            <a href="/">
-                                <i>Profile</i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <!-- Link to Logout Page -->
-                            <a href="/users/logout">
-                                <i>Logout</i>
-                            </a>
-                        </li>
-
-                        {{else}}
-
-                        <li class="nav-item">
-                            <!-- Link to Login Page -->
-                            <a href="/users/login">
-                                <i>Login</i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <!-- Link to Register Page -->
-                            <a href="/users/register">
-                                <i>Register</i>
-                            </a>
-                        </li>
-                        {{/if}}
-
-
-
-                    </ul>
-                </div>
+        {{#if error}}
+        <div>
+            <div class="error-container">
+                <p>{{error}}</p>
             </div>
+        </div>
+        {{/if}}
+
+
+        <nav>
+            <!-- Do not forget to change the path to the image -->
+            <img src="/img/logo.png" alt="logo">
+
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">All Posts</a></li>
+
+
+                <!--For login users-->
+                {{#if itsAuthenticated}}
+
+                <li><a href="#">Create Post</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+
+                {{else}}
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+
+                {{/if}}
+            </ul>
+
         </nav>
-    </header>
 
-    {{{body}}}
 
-    <!-- Starts Footer Section -->
-    <div class="footer">
-        <span class="footer-section">
-            © 2023 SoftUni Back-End Exam
-        </span>
+        {{{body}}}
+
+        <footer>
+            © JS Back-End Exam 2023
+        </footer>
     </div>
 
 </body>
