@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Page</title>
+    <title>Register Page</title>
 
     <!-- Do not forget to change the path to the css file -->
     <link href="./static/css/style.css" type="text/css" rel="stylesheet">
@@ -42,50 +42,43 @@
 
         <main>
 
-            <section id="edit-page">
-                <div class="editSection">
+            <section id="register-page">
+                <div class="signupSection">
                     <div class="info">
-                        <h2>"I've Always Wanted To Use That Spell."</h2>
+                        <h2>"I hope you're pleased with yourselves. We could all have been killed — or worse, expelled. Now if you don't mind, I'm going to bed."</h2>
                     </div>
-
-                    <form action="#" method="" class="editForm">
-                        <h2>Edit Post</h2>
+                    <form action="#" method="" class="signupForm">
+                        <h2>Sign Up</h2>
                         <ul class="noBullet">
                             <li>
-                                <label for="title">Name:</label>
-                                <input type="text" class="inputFields" id="name" name="" value="" />
+                                <label for="first-name">First Name:</label>
+                                <input type="text" class="inputFields" id="first-name" name="" value="" placeholder="Alex" />
                             </li>
                             <li>
-                                <label for="key-word">Species:</label>
-                                <input type="text" class="inputFields" id="species" name="" value="" />
+                                <label for="last-name">Last Name:</label>
+                                <input type="text" class="inputFields" id="last-name" name="" value="" placeholder="Petkov" />
                             </li>
                             <li>
-                                <label for="location">Skin Colour:</label>
-                                <input type="text" class="inputFields" id="skin" name="" value="" />
+                                <label for="email">Email:</label>
+                                <input type="text" class="inputFields" id="email" name="" value="" placeholder="alex@gmail.com" />
                             </li>
                             <li>
-                                <label for="date">Eye Colour:</label>
-                                <input type="text" class="inputFields" id="eye" name="" value="" />
+                                <label for="password">Password:</label>
+                                <input type="password" class="inputFields" id="password" name="" placeholder="******" />
                             </li>
                             <li>
-                                <label for="image">Creature Image:</label>
-                                <input type="text" class="inputFields" id="image" name="" value="" />
-                            </li>
-                            <li>
-                                <label for="description">Description:</label>
-                                <textarea id="description" class="inputFields" name=""></textarea>
+                                <label for="repeat-password">Repeat-Password:</label>
+                                <input type="password" class="inputFields" id="repeat-password" name="" placeholder="******" />
                             </li>
                             <li id="center-btn">
-                                <button id="edit-btn">Edit</button>
+                                <button id="join-btn">JOIN</button>
                             </li>
                         </ul>
                     </form>
-
                 </div>
             </section>
 
         </main>
-
 
         <footer>
             © JS Back-End Exam 2023
