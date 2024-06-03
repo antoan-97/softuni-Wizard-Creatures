@@ -5,12 +5,10 @@ const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: [true, 'First name is required!'],
-        unique: true,
     },
     lastName: {
         type: String,
         required: [true, 'Last name is required!'],
-        unique: true,
     },
     email: {
         type: String,
@@ -18,9 +16,9 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is required!'],
+        required:  [true, 'Password is required!'],
     },
-
+   
 });
 
 
@@ -32,7 +30,7 @@ userSchema.virtual('repeatPassword')
     })
 
 userSchema.pre('save', async function () {
-    const hash = await bcrypt.hash(this.password, 10);
+    const hash = await bcrypt.hash(this.password,10);
     this.password = hash;
 });
 
