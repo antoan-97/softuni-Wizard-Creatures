@@ -9,17 +9,18 @@ const creatureSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    skinColor: {
+    skinColour: {
         type: String,
         required: true,
     },
-    eyeColor: {
+    eyeColour: {
         type: String,
         required: true,
     },
     image: {
         type: String,
         required: true,
+        match:[/^https?:\/\//, 'Invalid URL!']
     },
     description: {
         type: String,
