@@ -19,15 +19,15 @@
                     {{#if isOwner}}
                     <div class="social-btn">
                         <!-- Only for registered user and author of the post -->
-                        <a href="#" class="edit-btn">Edit</a>
-                        <a href="#" class="del-btn">Delete</a>
+                        <a href="/creatures/{{creature._id}}/edit" class="edit-btn">Edit</a>
+                        <a href="/creatures/{{creature._id}}/delete" class="del-btn">Delete</a>
                         {{else}}
                         {{#if hasVoted}}
                         <!-- logged in user who has already voted-->
                         <p class="thanks-for-vote">Thanks For Voting</p>
                         {{else}}
                         <!-- logged in users, who have not yet voted-->
-                        <a href="#" class="vote-up">Vote</a>
+                        <a href="/creatures/{{creature._id}}/vote" class="vote-up">Vote</a>
                         {{/if}}
                         {{/if}}
                         {{/if}}
@@ -51,11 +51,7 @@
                         <p class="PV">Total rating of votes: {{creature.votes.length}}</p>
                     </div>
                     {{#if creature.votes.length}}
-                    <p class="disc">People who voted for the post -
-                        {{#each voterEmails}}
-                        {{this}}{{#unless @last}}, {{/unless}}
-                        {{/each}}
-                    </p>
+                    <p class="disc">People who voted for the post - {{voterEmails}}</p>
                     {{else}}
                     <!-- If not display: -->
                     <p class="disc">People who voted for the post - No one has voted yet.</p>
