@@ -16,22 +16,22 @@
 
                     <p class="disc">Description: {{creature.description}}</p>
                     {{#if user}}
-                    {{#if isOwner}}
-                    <div class="social-btn">
-                        <!-- Only for registered user and author of the post -->
-                        <a href="/creatures/{{creature._id}}/edit" class="edit-btn">Edit</a>
-                        <a href="/creatures/{{creature._id}}/delete" class="del-btn">Delete</a>
-                        {{else}}
-                        {{#if hasVoted}}
-                        <!-- logged in user who has already voted-->
-                        <p class="thanks-for-vote">Thanks For Voting</p>
-                        {{else}}
-                        <!-- logged in users, who have not yet voted-->
-                        <a href="/creatures/{{creature._id}}/vote" class="vote-up">Vote</a>
-                        {{/if}}
-                        {{/if}}
-                        {{/if}}
-                    </div>
+                        <div class="social-btn">
+                            {{#if isOwner}}
+                                <!-- Only for registered user and author of the post -->
+                                <a href="/creatures/{{creature._id}}/edit" class="edit-btn">Edit</a>
+                                <a href="/creatures/{{creature._id}}/delete" class="del-btn">Delete</a>
+                            {{else}}
+                                {{#if hasVoted}}
+                                    <!-- logged in user who has already voted-->
+                                    <p class="thanks-for-vote">Thanks For Voting</p>
+                                {{else}}
+                                    <!-- logged in users, who have not yet voted-->
+                                    <a href="/creatures/{{creature._id}}/vote" class="vote-up">Vote</a>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
                 </div>
             </div>
             <div class="card_right">
@@ -39,9 +39,6 @@
             </div>
         </div>
 
-    </section>
-
-    <section id="votes">
         <div class="vote-info">
             <div class="card_left">
                 <div class="card_datails">
@@ -51,14 +48,15 @@
                         <p class="PV">Total rating of votes: {{creature.votes.length}}</p>
                     </div>
                     {{#if creature.votes.length}}
-                    <p class="disc">People who voted for the post - {{voterEmails}}</p>
+                        <p class="disc">People who voted for the post - {{voterEmails}}</p>
                     {{else}}
-                    <!-- If not display: -->
-                    <p class="disc">People who voted for the post - No one has voted yet.</p>
+                        <!-- If not display: -->
+                        <p class="disc">People who voted for the post - No one has voted yet.</p>
                     {{/if}}
                 </div>
             </div>
         </div>
+
     </section>
 
 </main>
