@@ -30,25 +30,25 @@ router.post('/create', async (req, res) => {
 });
 
 
-router.get('/:creatureId/details', async (req,res) =>{
+router.get('/:creatureId/details', async (req, res) => {
     const { user } = req;
     const creatureId = req.params.creatureId;
     const creature = await creatureManager.getOne(creatureId).lean();
 
     const voters = await User.find({ _id: { $in: creature.votes } }, 'email').lean();
     const voterEmails = voters.map(voter => voter.email).join(', ');
-   
-  
-     const owner = await User.findById(creature.owner).lean();
-     const ownerName = owner ? `${owner.firstName} ${owner.lastName}` : 'Unknown';
-     
 
 
-    
+    const owner = await User.findById(creature.owner).lean();
+    const ownerName = owner ? `${owner.firstName} ${owner.lastName}` : 'Unknown';
+
+
+
+
     const isOwner = req.user?._id == creature.owner?._id;
     const hasVoted = creature.votes?.some((v) => v?.toString() === user?._id);
 
-    res.render('creatures/details', { isOwner, user, creature, hasVoted, ownerName,voterEmails  })
+    res.render('creatures/details', { isOwner, user, creature, hasVoted, ownerName, voterEmails })
 
 });
 
@@ -63,5 +63,19 @@ router.get('/:creatureId/vote', async (req, res) => {
         res.render('404', { error: getErrorMessage(err) })
     }
 });
+
+
+router.get('/:creatureId/edit', async (req, res) => {
+    const creatureId = req.params.creatureId;
+
+
+    try {
+        const creature = await creatureManager.getOne(creatureId).lean();
+        console.log(creature);
+        res.render('creatures/edit', { creature })
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) });
+    }
+})
 
 module.exports = router;
