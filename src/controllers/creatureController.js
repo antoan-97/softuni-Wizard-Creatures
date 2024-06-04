@@ -6,7 +6,7 @@ const User = require('../models/User');
 const { getErrorMessage } = require('../utils/errorHelper');
 
 
-router.get('/', async (req,res) =>{
+router.get('/', async (req, res) => {
     const creatures = await creatureManager.getAll().lean();
     res.render('creatures', { creatures })
 });
@@ -36,12 +36,12 @@ router.get('/:creatureId/details', async (req,res) =>{
     const creature = await creatureManager.getOne(creatureId).lean();
 
     const voters = await User.find({ _id: { $in: creature.votes } }, 'email').lean();
-    const voterEmails = voters.map(voter => voter.email);
+    const voterEmails = voters.map(voter => voter.email).join(', ');
    
   
      const owner = await User.findById(creature.owner).lean();
      const ownerName = owner ? `${owner.firstName} ${owner.lastName}` : 'Unknown';
-     console.log(user);
+     
 
 
     
@@ -50,6 +50,18 @@ router.get('/:creatureId/details', async (req,res) =>{
 
     res.render('creatures/details', { isOwner, user, creature, hasVoted, ownerName,voterEmails  })
 
-})
+});
+
+router.get('/:creatureId/vote', async (req, res) => {
+    const creatureId = req.params.creatureId;
+    const userId = req.user._id;
+
+    try {
+        await creatureManager.vote(creatureId, userId);
+        res.redirect(`/creatures/${creatureId}/details`);
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) })
+    }
+});
 
 module.exports = router;
