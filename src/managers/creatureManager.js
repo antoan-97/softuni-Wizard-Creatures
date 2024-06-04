@@ -8,6 +8,8 @@ exports.getOne = (creatureId) => Creature.findById(creatureId).populate('owner')
 
 exports.edit = (creatureId,creatureData) => Creature.findByIdAndUpdate(creatureId,creatureData);
 
+exports.delete = (creatureId) => Creature.findByIdAndDelete(creatureId);
+
 exports.vote = async (creatureId, userId) => {
     const creature = await Creature.findById(creatureId);
 

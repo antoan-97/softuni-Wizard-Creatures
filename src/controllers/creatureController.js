@@ -89,6 +89,20 @@ router.post('/:creatureId/edit', async (req, res) => {
         res.render('creatures/edit', { creature: { ...creatureData, _id: creatureId }, error: getErrorMessage(err) })
     }
 
+});
+
+
+
+router.get('/:creatureId/delete', async (req, res) => {
+    const creatureId = req.params.creatureId;
+
+    try {
+        await creatureManager.delete(creatureId);
+        res.redirect('/creatures');
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) })
+    }
+
 })
 
 module.exports = router;
