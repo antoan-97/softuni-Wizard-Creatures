@@ -76,6 +76,19 @@ router.get('/:creatureId/edit', async (req, res) => {
     } catch (err) {
         res.render('404', { error: getErrorMessage(err) });
     }
+});
+
+router.post('/:creatureId/edit', async (req, res) => {
+    const creatureId = req.params.creatureId;
+    const creatureData = req.body;
+
+    try {
+        await creatureManager.edit(creatureId, creatureData);
+        res.redirect(`/creatures/${creatureId}/details`);
+    } catch (err) {
+        res.render('creatures/edit', { creature: { ...creatureData, _id: creatureId }, error: getErrorMessage(err) })
+    }
+
 })
 
 module.exports = router;
