@@ -8,6 +8,9 @@ const creatureController = require('./controllers/creatureController');
 router.use(homeController);
 router.use('/users',userController);
 router.use('/creatures',creatureController);
+router.get('*', (req,res) =>{
+    res.redirect('/404')
+});
 
 
 module.exports = router
