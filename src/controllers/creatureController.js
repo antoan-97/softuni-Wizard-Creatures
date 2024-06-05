@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const creatureManager = require('../managers/creatureManager');
 const User = require('../models/User');
+const { isAuth } = require('../middlewares/authMiddleware');
 
 
 const { getErrorMessage } = require('../utils/errorHelper');
@@ -11,11 +12,11 @@ router.get('/', async (req, res) => {
     res.render('creatures', { creatures })
 });
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('creatures/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     const creatureData = {
         ...req.body,
         owner: req.user._id,
@@ -52,7 +53,7 @@ router.get('/:creatureId/details', async (req, res) => {
 
 });
 
-router.get('/:creatureId/vote', async (req, res) => {
+router.get('/:creatureId/vote', isAuth, async (req, res) => {
     const creatureId = req.params.creatureId;
     const userId = req.user._id;
 
@@ -65,7 +66,7 @@ router.get('/:creatureId/vote', async (req, res) => {
 });
 
 
-router.get('/:creatureId/edit', async (req, res) => {
+router.get('/:creatureId/edit', isAuth, async (req, res) => {
     const creatureId = req.params.creatureId;
 
 
@@ -78,7 +79,7 @@ router.get('/:creatureId/edit', async (req, res) => {
     }
 });
 
-router.post('/:creatureId/edit', async (req, res) => {
+router.post('/:creatureId/edit', isAuth, async (req, res) => {
     const creatureId = req.params.creatureId;
     const creatureData = req.body;
 
@@ -93,7 +94,7 @@ router.post('/:creatureId/edit', async (req, res) => {
 
 
 
-router.get('/:creatureId/delete', async (req, res) => {
+router.get('/:creatureId/delete', isAuth, async (req, res) => {
     const creatureId = req.params.creatureId;
 
     try {
@@ -103,6 +104,6 @@ router.get('/:creatureId/delete', async (req, res) => {
         res.render('404', { error: getErrorMessage(err) })
     }
 
-})
+});
 
 module.exports = router;
