@@ -1,12 +1,14 @@
 const router = require('express').Router();
 const userManager = require('../managers/userManager');
 const { getErrorMessage } = require('../utils/errorHelper');
+const { isLoggedIn } = require('../middlewares/authMiddleware');
+
 const creatureManager = require('../managers/creatureManager');
 const Creature = require('../models/Creature');
 const User = require('../models/User');
 
 
-router.get('/login', (req, res) => {
+router.get('/login', isLoggedIn, (req, res) => {
     res.render('users/login');
 });
 
@@ -23,7 +25,7 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.get('/register', (req, res) => {
+router.get('/register', isLoggedIn, (req, res) => {
     res.render('users/register');
 });
 
