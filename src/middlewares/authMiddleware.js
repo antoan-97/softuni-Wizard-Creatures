@@ -40,10 +40,32 @@ exports.isLoggedIn = (req, res, next) => {
 
 
 exports.isOwner = async (req, res, next) => {
-    const creatureId = req.params.creatureId;
-    const creature = await creatureManager.getOne(creatureId);
-    if (!creature || creature.owner.toString() !== req.user._id.toString()) {
-        return res.render('404');
+    try {
+        const creatureId = req.params.creatureId;
+        const creature = await creatureManager.getOne(creatureId);
+
+        if (!creature) {
+            console.log(`Creature with ID ${creatureId} not found`);
+            return res.render('404');
+        }
+
+        if (!req.user) {
+            console.log('User is not authenticated');
+            return res.render('404');
+        }
+
+        console.log(`Creature owner: ${String(creature.owner._id)}`);
+        console.log(`Authenticated user: ${String(req.user._id)}`);
+
+        if (String(creature.owner._id) === String(req.user._id)) {
+            console.log(`User ${req.user._id} is the owner of Creature ${creatureId}`);
+            return next();
+        } else {
+            console.log(`User ${req.user._id} is not the owner of Creature ${creatureId}`);
+            return res.render('404');
+        }
+    } catch (error) {
+        console.error(`Error in isOwner middleware: ${error.message}`);
+        return res.render('404', { error: 'An error occurred while checking ownership' });
     }
-    next();
 };
